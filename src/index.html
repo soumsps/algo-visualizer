@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Algo Visualizer
+    </title>
+
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <noscript>You need to enable Javascript to run this app.</noscript>
+    <header class="header">
+      <span class="header-text">Algorithm Visualizer</span>
+    </header>
+
+    <div class="container">
+      <div class="visualizer-config-panel">
+        <span class="vcp-title-text">Visualization options</span>
+        <hr />
+        <form class="configuration-options">
+          <div class="config-option">
+            <label class="vcp-label" for="algo-selected">Choose Algorithm:</label><br />
+            <select id="algo-selected" name="algo-selected" onChange="algoChange()">
+              <option value="id_1" selected>Linear Search</option>
+              <option value="id_2">Binary Search</option>
+              <option value="id_3">Selection Sort</option>
+              <option value="id_4">Bubble Sort</option>
+            </select>
+          </div>
+
+          <div class="config-option">
+            <label class="vcp-label" for="data-set-size">Dataset Size (int only):</label
+            ><br />
+            <input
+              type="text"
+              id="data-set-size"
+              name="data-set-size"
+              value="10"
+              onChange="dataSetSizeChange()"
+            />
+          </div>
+
+          <div class="config-option">
+            <label class="vcp-label" for="searched-item">Search Item:</label><br />
+            <input type="text" id="searched-item" name="searched-item" value="5" />
+          </div>
+
+          <div class="config-option">
+            <button type="submit">Visualize Now</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="animation-panel">
+        <div class="status-logs">
+          <div>Visualizing : Linear Search Algorithm</div>
+          <div>Searched Item : 20</div>
+        </div>
+
+        <div class="animation-box">
+          <div class="elements" id="index-0">3</div>
+          <div class="elements" id="index-1">45</div>
+          <div class="elements" id="index-2">556</div>
+        </div>
+      </div>
+
+      <!-- container end-->
+    </div>
+
+    <footer class="footer">
+      <span class="footer-text">Developed by Soumendu Prasad Sinha</span>
+    </footer>
+
+    <script src="./js/script.js"></script>
+  </body>
+</html>

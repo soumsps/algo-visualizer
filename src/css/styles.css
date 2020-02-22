@@ -1,0 +1,92 @@
+body {
+  display: block;
+  margin: 0px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Header CSS */
+
+.header {
+  background-color: #03a9f4;
+  padding: 10px 10px;
+}
+
+.header-text {
+  font-size: 30px;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Footer CSS */
+.footer {
+  background-color: #dbf4ff;
+  text-align: center;
+  padding: 5px 0px;
+}
+
+.footer-text {
+  font-size: 18px;
+}
+
+/* Container CSS */
+
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+/* 
+Algorithm Options CSS 
+*/
+
+.visualizer-config-panel {
+  background-color: #f9fafc;
+  padding: 45px 10px;
+  width: 200px;
+}
+
+.configuration-options {
+  display: flex;
+  flex-direction: column;
+}
+
+.config-option {
+  padding: 10px;
+}
+
+.vcp-title-text {
+  font-size: 19px;
+  font-weight: 500;
+}
+
+.vcp-label {
+  font-size: 14px;
+}
+
+/* Animation panel CSS */
+
+.animation-panel {
+  background-color: #fff;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.animation-box {
+  background-color: #fffef6;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 40px 20px;
+}
+
+.elements {
+  border: 1px #5c5b5b solid;
+  height: 40px;
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+}
