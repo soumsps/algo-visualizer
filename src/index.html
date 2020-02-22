@@ -19,47 +19,44 @@
       <div class="visualizer-config-panel">
         <span class="vcp-title-text">Visualization options</span>
         <hr />
-        <form class="configuration-options">
+        <div class="configuration-options">
           <div class="config-option">
-            <label class="vcp-label" for="algo-selected">Choose Algorithm:</label><br />
-            <select id="algo-selected" name="algo-selected" onChange="algoChange()">
-              <option value="id_1" selected>Linear Search</option>
-              <option value="id_2">Binary Search</option>
-              <option value="id_3">Selection Sort</option>
-              <option value="id_4">Bubble Sort</option>
+            <label class="vcp-label" for="algo-selector">Choose Algorithm:</label><br />
+            <select id="algo-selector" name="algo-selector" onchange="algoChange()">
+              <!-- options set by javascript-->
             </select>
           </div>
 
           <div class="config-option">
             <label class="vcp-label" for="data-set-size">Dataset Size (int only):</label
             ><br />
-            <input
-              type="text"
-              id="data-set-size"
-              name="data-set-size"
-              value="10"
-              onChange="dataSetSizeChange()"
-            />
+            <span>
+              <input type="text" id="data-set-size" name="data-set-size" />
+              <button type="button" onclick="dataSetSizeChange()">Set</button>
+            </span>
           </div>
 
           <div class="config-option">
             <label class="vcp-label" for="searched-item">Search Item:</label><br />
-            <input type="text" id="searched-item" name="searched-item" value="5" />
+            <input type="text" id="searched-item" name="searched-item" />
           </div>
 
           <div class="config-option">
-            <button type="submit">Visualize Now</button>
+            <button type="button" onclick="visualizeNow()">Visualize Now</button>
           </div>
-        </form>
+        </div>
       </div>
 
       <div class="animation-panel">
-        <div class="status-logs">
+        <!--
+            <div class="status-logs">
           <div>Visualizing : Linear Search Algorithm</div>
           <div>Searched Item : 20</div>
         </div>
+          
+      -->
 
-        <div class="animation-box">
+        <div id="animation-box" class="animation-box">
           <div class="elements" id="index-0">3</div>
           <div class="elements" id="index-1">45</div>
           <div class="elements" id="index-2">556</div>
