@@ -1,5 +1,5 @@
 // default configuration
-let algoSelected = "id_2";
+let algoSelected = "id_3";
 let dataSetSize = "15";
 let searchedItem = "7";
 let arrayData = [];
