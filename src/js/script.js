@@ -2,6 +2,7 @@
 let algoSelected = "id_1";
 let dataSetSize = "15";
 let searchedItem = "7";
+let visualizerRunning = false;
 let arrayData = [];
 
 let animationBoxDiv = document.getElementById("animation-box");
@@ -103,9 +104,14 @@ const generateArrayElementsFrontend = () => {
  */
 const algoChange = () => {
   console.log("algo changed");
+
+  algoSelected = document.getElementById("algo-selector").value;
+
+  if (visualizerRunning) {
+    return 0;
+  }
   // Resetting all Error message on frontend
   resetErrorMsg();
-  algoSelected = document.getElementById("algo-selector").value;
 
   randomArrayDataGen(dataSetSize);
   console.log("New Algo selected: ", algoSelected);
@@ -115,10 +121,15 @@ const algoChange = () => {
 
 const dataSetSizeChange = () => {
   console.log("data set changed Clicked");
-  // Resetting all Error message on frontend
-  resetErrorMsg();
 
   dataSetSize = parseInt(document.getElementById("data-set-size").value);
+
+  if (visualizerRunning) {
+    return 0;
+  }
+
+  // Resetting all Error message on frontend
+  resetErrorMsg();
 
   // error checking
   // if  data set size entered is less than 0 then it will be error
@@ -139,6 +150,10 @@ const setSearchedItem = () => {
 
 const visualizeNow = async () => {
   console.log("Visualize now clicked");
+  if (visualizerRunning) {
+    return 0;
+  }
+
   // Resetting all Error message on frontend
   resetErrorMsg();
 
@@ -147,6 +162,8 @@ const visualizeNow = async () => {
 
   setAVStatusDiv();
   resetLoggerContent();
+
+  visualizerRunning = true;
 
   if (algoSelected === "id_1") {
     await linearSearch();
@@ -163,6 +180,8 @@ const visualizeNow = async () => {
   if (algoSelected === "id_4") {
     await bubbleSort();
   }
+
+  visualizerRunning = false;
 };
 
 /**
