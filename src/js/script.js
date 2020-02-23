@@ -1,7 +1,7 @@
 // default configuration
-let algoSelected = "id_1";
+let algoSelected = "id_2";
 let dataSetSize = "15";
-let searchedItem = "";
+let searchedItem = "7";
 let arrayData = [];
 
 let animationBoxDiv = document.getElementById("animation-box");
@@ -109,6 +109,8 @@ const algoChange = () => {
 
   randomArrayDataGen(dataSetSize);
   console.log("New Algo selected: ", algoSelected);
+
+  setAVStatusDiv();
 };
 
 const dataSetSizeChange = () => {
@@ -140,10 +142,11 @@ const visualizeNow = async () => {
   // Resetting all Error message on frontend
   resetErrorMsg();
 
-  resetAVStatusDiv();
-
   // setting user searched item to our global variable
   setSearchedItem();
+
+  setAVStatusDiv();
+  resetLoggerContent();
 
   if (algoSelected === "id_1") {
     await linearSearch();
@@ -185,6 +188,7 @@ const resetAVStatusDiv = () => {
 };
 
 const setAVStatusDiv = () => {
+  resetAVStatusDiv();
   // parent
   let avStatusDiv = document.getElementById("av-status");
 
@@ -196,6 +200,47 @@ const setAVStatusDiv = () => {
   algoName.innerHTML = `Algorithm : ${algoData[algoSelected].name}`;
   avStatusDiv.appendChild(algoName);
 
-  let searchedItem = document.createElement("div");
-  let searchResult = document.createElement("div");
+  if (algoData[algoSelected].isSearchItemReq) {
+    let searchedFor = document.createElement("div");
+    let searchRes = document.createElement("div");
+
+    searchedFor.setAttribute("class", "avs-text");
+    searchedFor.setAttribute("id", "avs-searched-item");
+    searchedFor.innerHTML = `Search for : ${searchedItem}`;
+    avStatusDiv.appendChild(searchedFor);
+
+    searchRes.setAttribute("class", "avs-text");
+    searchRes.setAttribute("id", "avs-search-result");
+    searchRes.innerHTML = "Search Result: Not executed";
+    avStatusDiv.appendChild(searchRes);
+  }
+};
+
+const setSearchResult = msg => {
+  let searchRes = document.getElementById("avs-search-result");
+  searchRes.innerHTML = `Search Result: ${msg}`;
+};
+
+/**
+ * Helper function to enable logging on frontend
+ */
+const logger = (msg, color = "white", fontWeight = 500) => {
+  // parent-log node
+  let logContentDiv = document.getElementById("lp-el-content");
+
+  // child that will be appended
+  let logMsg = document.createElement("span");
+
+  logMsg.setAttribute("class", "lp-el-text");
+  logMsg.style.color = color;
+  logMsg.style.fontWeight = fontWeight;
+  logMsg.innerHTML = msg;
+  logContentDiv.appendChild(logMsg);
+};
+
+/**
+ * helper function to reset log content area
+ */
+const resetLoggerContent = () => {
+  document.getElementById("lp-el-content").innerHTML = "";
 };
