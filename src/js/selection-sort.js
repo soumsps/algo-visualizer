@@ -5,7 +5,7 @@
 const selectionSort = async (arr = arrayData) => {
   console.log("<---- Selection Sort Visualization Started ---->");
 
-  logger("SELECTION SORTED STARTED", "yellow", 700);
+  logger("SELECTION SORT STARTED", "yellow", 700);
   // selection sort logic
 
   for (let i = 0; i < arr.length; i++) {
@@ -36,7 +36,7 @@ const selectionSort = async (arr = arrayData) => {
 
     await selectionSortMinIndexResetMarker(min);
   }
-  logger(`Sorting completed`);
+  logger(`Sorting completed`, "green", 700);
 };
 
 const selectionSortCurrentIndex = index => {
