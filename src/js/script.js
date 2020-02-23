@@ -107,6 +107,9 @@ const algoChange = () => {
 
   algoSelected = document.getElementById("algo-selector").value;
 
+  // logging changes
+  logger(`${algoData[algoSelected].name} Algorithm selected`, "greenyellow");
+
   if (visualizerRunning) {
     return 0;
   }
@@ -123,6 +126,9 @@ const dataSetSizeChange = () => {
   console.log("data set changed Clicked");
 
   dataSetSize = parseInt(document.getElementById("data-set-size").value);
+
+  // logging changes
+  logger(`Data Set Size: ${dataSetSize}`, "greenyellow");
 
   if (visualizerRunning) {
     return 0;
@@ -151,7 +157,14 @@ const setSearchedItem = () => {
 const visualizeNow = async () => {
   console.log("Visualize now clicked");
   if (visualizerRunning) {
+    logger(`System Busy, Please wait.`, "#ff5722");
     return 0;
+  }
+
+  if (dataSetSize != arrayData.length) {
+    // means there is some problem
+    // so  just creating new array
+    randomArrayDataGen(dataSetSize);
   }
 
   // Resetting all Error message on frontend
@@ -161,7 +174,6 @@ const visualizeNow = async () => {
   setSearchedItem();
 
   setAVStatusDiv();
-  resetLoggerContent();
 
   visualizerRunning = true;
 
@@ -255,6 +267,9 @@ const logger = (msg, color = "white", fontWeight = 500) => {
   logMsg.style.fontWeight = fontWeight;
   logMsg.innerHTML = msg;
   logContentDiv.appendChild(logMsg);
+
+  logContentDiv.scrollTo(0, logContentDiv.scrollHeight);
+  console.log(logContentDiv.scrollHeight);
 };
 
 /**
@@ -262,4 +277,12 @@ const logger = (msg, color = "white", fontWeight = 500) => {
  */
 const resetLoggerContent = () => {
   document.getElementById("lp-el-content").innerHTML = "";
+};
+
+/**
+ *  sleep function implementation
+ * default value = 200ms
+ */
+const sleep = (time = 200) => {
+  return new Promise(resolve => setTimeout(() => resolve(true), time));
 };

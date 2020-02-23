@@ -56,7 +56,7 @@ const binarySearch = async (arr = arrayData, elmToFind = searchedItem) => {
   if (foundAt != -1) {
     console.log("Searched Item found at index:", foundAt);
     setSearchResult(`Found at index ${foundAt}`);
-    logger(`Searched item found at index ${foundAt}`, "green");
+    logger(`Searched item found at index ${foundAt}`, "greenyellow");
   } else {
     console.log("Searched Item not found!");
     setSearchResult(`Not found`);

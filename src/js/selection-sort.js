@@ -36,7 +36,7 @@ const selectionSort = async (arr = arrayData) => {
 
     await selectionSortMinIndexResetMarker(min);
   }
-  logger(`Sorting completed`, "green", 700);
+  logger(`Selection sort completed`, "greenyellow", 700);
 };
 
 const selectionSortCurrentIndex = index => {

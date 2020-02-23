@@ -23,7 +23,7 @@ const bubbleSort = async (arr = arrayData) => {
     }
   }
 
-  logger(`Sorting completed`, "green", 700);
+  logger(`Bubble sort completed its execution`, "greenyellow", 700);
 };
 
 const bubbleSortCurrentIndex = (a, b) => {
