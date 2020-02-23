@@ -3,6 +3,7 @@ let algoSelected = "id_1";
 let dataSetSize = "15";
 let searchedItem = "7";
 let visualizerRunning = false;
+let speedFactor = 1;
 let arrayData = [];
 
 let animationBoxDiv = document.getElementById("animation-box");
@@ -45,6 +46,8 @@ const loadDefaultConfig = () => {
   document.getElementById(algoSelected).setAttribute("selected", true);
   document.getElementById("data-set-size").setAttribute("value", dataSetSize);
   document.getElementById("searched-item").setAttribute("value", searchedItem);
+
+  document.getElementById("curr-speed").innerHTML = `Current speed: ${speedFactor}x`;
 
   // Initializing new random arrayData of size  equal to dataSetSize
   randomArrayDataGen(dataSetSize);
@@ -268,8 +271,8 @@ const logger = (msg, color = "white", fontWeight = 500) => {
   logMsg.innerHTML = msg;
   logContentDiv.appendChild(logMsg);
 
+  // autoscroll
   logContentDiv.scrollTo(0, logContentDiv.scrollHeight);
-  console.log(logContentDiv.scrollHeight);
 };
 
 /**
@@ -284,5 +287,33 @@ const resetLoggerContent = () => {
  * default value = 200ms
  */
 const sleep = (time = 200) => {
-  return new Promise(resolve => setTimeout(() => resolve(true), time));
+  return new Promise(resolve => setTimeout(() => resolve(true), time / speedFactor));
+};
+
+/**
+ * animation speed increment controller function
+ */
+const incSpeed = (max = 10) => {
+  if (speedFactor < max) {
+    speedFactor++;
+    logger(`Animation speed increased`, "greenyellow");
+  } else {
+    logger(`Animation speed can't be increased`, "red");
+  }
+
+  document.getElementById("curr-speed").innerHTML = `Current speed: ${speedFactor}x`;
+};
+
+/**
+ * animation speed decrement controller function
+ */
+const decSpeed = (min = 1) => {
+  if (speedFactor > min) {
+    speedFactor--;
+    logger(`Animation speed decreased`, "greenyellow");
+  } else {
+    logger(`Animation speed can't be decreased`, "red");
+  }
+
+  document.getElementById("curr-speed").innerHTML = `Current speed: ${speedFactor}x`;
 };

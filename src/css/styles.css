@@ -110,7 +110,7 @@ Algorithm Options CSS
   padding-top: 5px;
   padding-bottom: 5px;
   max-height: 600px;
-  overflow: scroll;
+  overflow: overlay;
 }
 
 .lp-el-text {
