@@ -1,9 +1,11 @@
 // default configuration
 let algoSelected = "id_1";
-let dataSetSize = 15;
-let searchedItem = 6;
+let dataSetSize = "15";
+let searchedItem = "";
 let arrayData = [];
+
 let animationBoxDiv = document.getElementById("animation-box");
+let errorDiv = document.getElementById("error-div");
 
 // Algorithms IDs
 
@@ -25,7 +27,7 @@ window.onload = () => {
 const loadDefaultConfig = () => {
   console.log("loading default config");
 
-  // All implemented algorithms
+  // All implemented algorithms as array form
   const keys = Object.keys(algoData);
   console.log("all algo IDs that have been implemented: ", keys);
 
@@ -49,9 +51,11 @@ const loadDefaultConfig = () => {
 /**
  * To generate new random array
  */
-const randomArrayDataGen = (count, sort = algoData[algoSelected].isSorted) => {
+const randomArrayDataGen = async (count, sort = algoData[algoSelected].isSorted) => {
   // resettting old array
   arrayData.length = 0;
+  resetAnimationBox();
+
   for (let i = 0; i < count; i++) {
     // andom number between -100 to 100
     if (Math.random() > 0.5) {
@@ -60,7 +64,6 @@ const randomArrayDataGen = (count, sort = algoData[algoSelected].isSorted) => {
       arrayData.push(Math.floor(Math.random() * 100 * -1));
     }
   }
-
   // Check if we need to sort arrayData
   // Like in case of Binary search we need sorted array
   if (sort) {
@@ -68,18 +71,29 @@ const randomArrayDataGen = (count, sort = algoData[algoSelected].isSorted) => {
   }
 
   console.log("arrayData: ", arrayData);
-  resetAnimationBox();
+
   // generating new set of array elements on frontend
   generateArrayElementsFrontend();
 };
 
 const generateArrayElementsFrontend = () => {
   for (let i = 0; i < arrayData.length; i++) {
-    let div = document.createElement("div");
-    div.setAttribute("class", "elements");
-    div.setAttribute("id", `index-${i}`);
-    div.innerHTML = arrayData[i];
-    animationBoxDiv.appendChild(div);
+    let itemGroup = document.createElement("div");
+    let itemValue = document.createElement("div");
+    let itemIndex = document.createElement("div");
+
+    itemGroup.setAttribute("class", "item-group");
+    itemGroup.setAttribute("id", `index-${i}`);
+
+    itemValue.setAttribute("class", "item-value");
+    itemValue.innerHTML = arrayData[i];
+
+    itemIndex.setAttribute("class", "item-index");
+    itemIndex.innerHTML = i;
+
+    itemGroup.appendChild(itemValue);
+    itemGroup.appendChild(itemIndex);
+    animationBoxDiv.appendChild(itemGroup);
   }
 };
 
@@ -88,42 +102,74 @@ const generateArrayElementsFrontend = () => {
  */
 const algoChange = () => {
   console.log("algo changed");
-  let newAlgoSelected = document.getElementById("algo-selector").value;
+  // Resetting all Error message on frontend
+  resetErrorMsg();
+  algoSelected = document.getElementById("algo-selector").value;
 
-  if (newAlgoSelected != algoSelected) {
-    algoSelected = newAlgoSelected;
-    randomArrayDataGen(dataSetSize);
-    console.log("New Algo selected: ", algoSelected);
-  } else {
-    console.log("No change in algo selection: ", algoSelected);
-  }
+  randomArrayDataGen(dataSetSize);
+  console.log("New Algo selected: ", algoSelected);
 };
 
 const dataSetSizeChange = () => {
   console.log("data set changed Clicked");
-  let newDataSetSize = parseInt(document.getElementById("data-set-size").value);
+  // Resetting all Error message on frontend
+  resetErrorMsg();
+
+  dataSetSize = parseInt(document.getElementById("data-set-size").value);
 
   // error checking
   // if  data set size entered is less than 0 then it will be error
-  if (newDataSetSize > 0 && newDataSetSize != dataSetSize) {
-    dataSetSize = newDataSetSize;
-    console.log("New changed data set size: ", dataSetSize);
-    randomArrayDataGen(dataSetSize);
-  } else {
-    console.log("Data set size not changed");
+  if (dataSetSize < 1 || isNaN(dataSetSize)) {
+    errorDiv.style.display = "inline";
+    errorDiv.innerHTML = "Data Set size is not appropriate";
+    resetAnimationBox();
+    return 0;
   }
-};
 
-const visualizeNow = () => {
-  console.log("Visualize now clicked");
+  randomArrayDataGen(dataSetSize);
 };
 
 const setSearchedItem = () => {
-  searchedItem = document.getElementById("searched-item").value;
+  searchedItem = parseInt(document.getElementById("searched-item").value);
+  console.log("searchedItem: ", searchedItem);
 };
 
-// this is used to reset any type type of ongoing animation
-// this kind of interfernce can happen if user suddenly change configuration
+const visualizeNow = async () => {
+  console.log("Visualize now clicked");
+  // Resetting all Error message on frontend
+  resetErrorMsg();
+
+  // setting user searched item to our global variable
+  setSearchedItem();
+
+  if (algoSelected === "id_1") {
+    await linearSearch();
+  }
+
+  if (algoSelected === "id_2") {
+    await binarySearch();
+  }
+
+  if (algoSelected === "id_3") {
+    await selectionSort();
+  }
+
+  if (algoSelected === "id_4") {
+    await bubbleSort();
+  }
+};
+
+/**
+ * This is used to reset any type type of ongoing animation
+ * This kind of interfernce can happen if user suddenly change configuration
+ */
 const resetAnimationBox = () => {
   animationBoxDiv.innerHTML = "";
+};
+
+/**
+ * This helper function will reset error msg thrown earlier on frontend
+ */
+const resetErrorMsg = () => {
+  errorDiv.style.display = "none";
 };

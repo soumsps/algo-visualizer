@@ -81,12 +81,31 @@ Algorithm Options CSS
   margin: 40px 20px;
 }
 
-.elements {
+.item-group {
+  margin: 10px;
+}
+
+.item-value {
   border: 1px #5c5b5b solid;
   height: 40px;
   width: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 10px;
+}
+
+.item-index {
+  background-color: #494949;
+  color: white;
+  padding: 3px 6px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-div {
+  background-color: #ffbda8;
+  padding: 5px;
+  display: none;
 }
