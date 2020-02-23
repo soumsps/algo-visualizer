@@ -10,14 +10,15 @@ let errorDiv = document.getElementById("error-div");
 // Algorithms IDs
 
 const algoData = {
-  id_1: { name: "Linear Search", isSorted: false },
-  id_2: { name: "Binary Search", isSorted: true },
-  id_3: { name: "Selection Sort", isSorted: false },
-  id_4: { name: "Bubble Sort", isSorted: false }
+  id_1: { name: "Linear Search", isSorted: false, isSearchItemReq: true },
+  id_2: { name: "Binary Search", isSorted: true, isSearchItemReq: true },
+  id_3: { name: "Selection Sort", isSorted: false, isSearchItemReq: false },
+  id_4: { name: "Bubble Sort", isSorted: false, isSearchItemReq: false }
 };
 
 window.onload = () => {
   loadDefaultConfig();
+  setAVStatusDiv();
 };
 
 /**
@@ -139,6 +140,8 @@ const visualizeNow = async () => {
   // Resetting all Error message on frontend
   resetErrorMsg();
 
+  resetAVStatusDiv();
+
   // setting user searched item to our global variable
   setSearchedItem();
 
@@ -172,4 +175,27 @@ const resetAnimationBox = () => {
  */
 const resetErrorMsg = () => {
   errorDiv.style.display = "none";
+};
+
+/**
+ * helper function to reset current algo status on frontend
+ */
+const resetAVStatusDiv = () => {
+  document.getElementById("av-status").innerHTML = "";
+};
+
+const setAVStatusDiv = () => {
+  // parent
+  let avStatusDiv = document.getElementById("av-status");
+
+  // child that will be appended
+  let algoName = document.createElement("div");
+
+  algoName.setAttribute("class", "avs-text");
+  algoName.setAttribute("id", "avs-name");
+  algoName.innerHTML = `Algorithm : ${algoData[algoSelected].name}`;
+  avStatusDiv.appendChild(algoName);
+
+  let searchedItem = document.createElement("div");
+  let searchResult = document.createElement("div");
 };
