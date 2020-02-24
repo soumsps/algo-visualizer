@@ -182,17 +182,11 @@ const visualizeNow = async () => {
 
   if (algoSelected === "id_1") {
     await linearSearch();
-  }
-
-  if (algoSelected === "id_2") {
+  } else if (algoSelected === "id_2") {
     await binarySearch();
-  }
-
-  if (algoSelected === "id_3") {
+  } else if (algoSelected === "id_3") {
     await selectionSort();
-  }
-
-  if (algoSelected === "id_4") {
+  } else if (algoSelected === "id_4") {
     await bubbleSort();
   }
 
