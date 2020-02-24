@@ -27,7 +27,7 @@ window.onload = () => {
  * Purpose of this function is to load default values and
  * to set default configuration, and generate random data array
  */
-const loadDefaultConfig = () => {
+const loadDefaultConfig = async () => {
   console.log("loading default config");
 
   // All implemented algorithms as array form
@@ -50,7 +50,10 @@ const loadDefaultConfig = () => {
   document.getElementById("curr-speed").innerHTML = `Current speed: ${speedFactor}x`;
 
   // Initializing new random arrayData of size  equal to dataSetSize
-  randomArrayDataGen(dataSetSize);
+  await randomArrayDataGen(dataSetSize);
+
+  // generating new set of array elements on frontend
+  await generateArrayElementsFrontend();
 };
 
 /**
@@ -59,7 +62,6 @@ const loadDefaultConfig = () => {
 const randomArrayDataGen = async (count, sort = algoData[algoSelected].isSorted) => {
   // resettting old array
   arrayData.length = 0;
-  resetAnimationBox();
 
   for (let i = 0; i < count; i++) {
     // andom number between -100 to 100
@@ -76,12 +78,11 @@ const randomArrayDataGen = async (count, sort = algoData[algoSelected].isSorted)
   }
 
   console.log("arrayData: ", arrayData);
-
-  // generating new set of array elements on frontend
-  generateArrayElementsFrontend();
 };
 
-const generateArrayElementsFrontend = () => {
+const generateArrayElementsFrontend = async () => {
+  resetAnimationBox();
+
   for (let i = 0; i < arrayData.length; i++) {
     let itemGroup = document.createElement("div");
     let itemValue = document.createElement("div");
@@ -99,6 +100,8 @@ const generateArrayElementsFrontend = () => {
     itemGroup.appendChild(itemValue);
     itemGroup.appendChild(itemIndex);
     animationBoxDiv.appendChild(itemGroup);
+
+    await sleep(10);
   }
 };
 
@@ -119,7 +122,6 @@ const algoChange = () => {
   // Resetting all Error message on frontend
   resetErrorMsg();
 
-  randomArrayDataGen(dataSetSize);
   console.log("New Algo selected: ", algoSelected);
 
   setAVStatusDiv();
@@ -148,8 +150,6 @@ const dataSetSizeChange = () => {
     resetAnimationBox();
     return 0;
   }
-
-  randomArrayDataGen(dataSetSize);
 };
 
 const setSearchedItem = () => {
@@ -164,17 +164,23 @@ const visualizeNow = async () => {
     return 0;
   }
 
-  if (dataSetSize != arrayData.length) {
-    // means there is some problem
-    // so  just creating new array
-    randomArrayDataGen(dataSetSize);
-  }
+  await dataSetSizeChange();
 
+  logger(`Generating data array of size ${dataSetSize}`, "#ff5722");
+  await randomArrayDataGen(dataSetSize);
+  await sleep(1000);
+  logger(`Generated`, "greenyellow");
   // Resetting all Error message on frontend
   resetErrorMsg();
 
   // setting user searched item to our global variable
   setSearchedItem();
+
+  // generating new set of array elements on frontend
+  logger(`Populating array data on screen.`, "#ff5722");
+  await generateArrayElementsFrontend();
+  await sleep(500);
+  logger(`Populated items on screen.`, "greenyellow");
 
   setAVStatusDiv();
 

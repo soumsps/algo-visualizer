@@ -32,7 +32,7 @@
             ><br />
             <span>
               <input type="text" id="data-set-size" name="data-set-size" />
-              <button type="button" onclick="dataSetSizeChange()">Set</button>
+              <button type="button" onclick="dataSetSizeChange()" hidden>Set</button>
             </span>
           </div>
 
@@ -51,11 +51,13 @@
         <span class="vcp-title-text">Speed Control</span>
         <hr />
         <div>
-          <span id="curr-speed" class="vcp-label" style="display: block;"
-            >Current speed: 1x</span
-          >
-          <button type="button" onclick="decSpeed()">Decrease</button>
-          <button type="button" onclick="incSpeed()">Increase</button>
+          <div id="curr-speed" class="vcp-label config-option" style="display: block;">
+            Current speed: 1x
+          </div>
+          <div class="config-option">
+            <button type="button" onclick="decSpeed()">Decrease</button>
+            <button type="button" onclick="incSpeed()">Increase</button>
+          </div>
         </div>
       </div>
 
