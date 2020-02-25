@@ -1,5 +1,5 @@
 // default configuration
-let algoSelected = "id_1";
+let algoSelected = "id_2";
 let dataSetSize = "15";
 let searchedItem = "7";
 let visualizerRunning = false;
@@ -16,6 +16,26 @@ const algoData = {
   id_2: { name: "Binary Search", isSorted: true, isSearchItemReq: true },
   id_3: { name: "Selection Sort", isSorted: false, isSearchItemReq: false },
   id_4: { name: "Bubble Sort", isSorted: false, isSearchItemReq: false }
+};
+
+const colorData = {
+  defaultColor: {
+    index: { bgColor: "#6c6969", borderColor: "#6c6969", fontColor: "#fff" },
+    value: { bgColor: "none", borderColor: "#6c6969", fontColor: "#000" }
+  },
+  id_1: {
+    name: "Linear Search",
+    currIndexColor: { descTxt: "Current index", bgColor: "#f44336", fontColor: "#fff" },
+    foundAtValueColor: { descTxt: "Found Item", bgColor: "#d6e260", fontColor: "#000" }
+  },
+  id_2: {
+    name: "Binary Search",
+    currIndexColor: { descTxt: "Current index", bgColor: "#f44336", fontColor: "#fff" },
+    lowIndexColor: { descTxt: "Low index", bgColor: "#4caf50", fontColor: "#fff" },
+    midIndexColor: { descTxt: "Middle index", bgColor: "#ffeb3b", fontColor: "#000" },
+    highIndexColor: { descTxt: "High index", bgColor: "#03a9f4", fontColor: "#fff" },
+    foundAtValueColor: { descTxt: "Found Item", bgColor: "#d6e260", fontColor: "#000" }
+  }
 };
 
 window.onload = () => {
@@ -60,6 +80,7 @@ const loadDefaultConfig = async () => {
  * To generate new random array
  */
 const randomArrayDataGen = async (count, sort = algoData[algoSelected].isSorted) => {
+  logger(`Generating data array of size ${dataSetSize}`, "#ff5722");
   // resettting old array
   arrayData.length = 0;
 
@@ -77,10 +98,17 @@ const randomArrayDataGen = async (count, sort = algoData[algoSelected].isSorted)
     arrayData.sort((a, b) => a - b);
   }
 
+  await sleep(500);
+  logger(`Generated`, "greenyellow");
+  await sleep(50);
   console.log("arrayData: ", arrayData);
 };
 
+/**
+ * helper function to generate array items on frontend
+ */
 const generateArrayElementsFrontend = async () => {
+  logger(`Populating array data on screen.`, "#ff5722");
   resetAnimationBox();
 
   for (let i = 0; i < arrayData.length; i++) {
@@ -103,42 +131,44 @@ const generateArrayElementsFrontend = async () => {
 
     await sleep(10);
   }
+
+  await sleep(500);
+  logger(`Populated items on screen.`, "greenyellow");
+  await sleep(200);
 };
 
 /**
  * This function is called when user changes currently selected algorithm
  */
-const algoChange = () => {
+const algoChange = async () => {
+  if (visualizerRunning) {
+    logger(
+      `Visualizer busy, changes will take effect after finishing current task.`,
+      "#ff5722"
+    );
+    return 0;
+  }
   console.log("algo changed");
-
   algoSelected = document.getElementById("algo-selector").value;
-
   // logging changes
   logger(`${algoData[algoSelected].name} Algorithm selected`, "greenyellow");
 
-  if (visualizerRunning) {
-    return 0;
-  }
   // Resetting all Error message on frontend
   resetErrorMsg();
-
   console.log("New Algo selected: ", algoSelected);
-
   setAVStatusDiv();
+  await dataSetSizeChange();
 };
 
-const dataSetSizeChange = () => {
-  console.log("data set changed Clicked");
-
-  dataSetSize = parseInt(document.getElementById("data-set-size").value);
-
-  // logging changes
-  logger(`Data Set Size: ${dataSetSize}`, "greenyellow");
-
+const dataSetSizeChange = async () => {
   if (visualizerRunning) {
+    logger(`Visualizer busy, Can't generate right now`, "#ff5722");
     return 0;
   }
-
+  console.log("data set changed Clicked");
+  dataSetSize = parseInt(document.getElementById("data-set-size").value);
+  // logging changes
+  logger(`Data Set Size: ${dataSetSize}`, "greenyellow");
   // Resetting all Error message on frontend
   resetErrorMsg();
 
@@ -150,6 +180,10 @@ const dataSetSizeChange = () => {
     resetAnimationBox();
     return 0;
   }
+
+  await randomArrayDataGen(dataSetSize);
+  // generating new set of array elements on frontend
+  await generateArrayElementsFrontend();
 };
 
 const setSearchedItem = () => {
@@ -160,30 +194,15 @@ const setSearchedItem = () => {
 const visualizeNow = async () => {
   console.log("Visualize now clicked");
   if (visualizerRunning) {
-    logger(`System Busy, Please wait.`, "#ff5722");
+    logger(`Visualizer busy, Please wait.`, "#ff5722");
     return 0;
   }
-
-  await dataSetSizeChange();
-
-  logger(`Generating data array of size ${dataSetSize}`, "#ff5722");
-  await randomArrayDataGen(dataSetSize);
-  await sleep(1000);
-  logger(`Generated`, "greenyellow");
   // Resetting all Error message on frontend
   resetErrorMsg();
-
   // setting user searched item to our global variable
   setSearchedItem();
-
-  // generating new set of array elements on frontend
-  logger(`Populating array data on screen.`, "#ff5722");
-  await generateArrayElementsFrontend();
-  await sleep(500);
-  logger(`Populated items on screen.`, "greenyellow");
-
   setAVStatusDiv();
-
+  await resetHighlightedDivs();
   visualizerRunning = true;
 
   if (algoSelected === "id_1") {
@@ -276,6 +295,14 @@ const logger = (msg, color = "white", fontWeight = 500) => {
 };
 
 /**
+ * Helper function to delete all logs generated by user
+ */
+const clearLogs = () => {
+  let logContentDiv = document.getElementById("lp-el-content");
+  logContentDiv.innerHTML = "";
+};
+
+/**
  * helper function to reset log content area
  */
 const resetLoggerContent = () => {
@@ -288,6 +315,28 @@ const resetLoggerContent = () => {
  */
 const sleep = (time = 200) => {
   return new Promise(resolve => setTimeout(() => resolve(true), time / speedFactor));
+};
+
+/**
+ * Helper function to reset any color set by any algorithm
+ * that executed previously
+ */
+const resetHighlightedDivs = (arr = arrayData) => {
+  return new Promise((resolve, reject) => {
+    for (let i = 0; i < arr.length; i++) {
+      let valueDiv = document.getElementById(`index-${i}`).childNodes[0];
+      valueDiv.style.background = colorData["defaultColor"]["value"]["bgColor"];
+      valueDiv.style.borderColor = colorData["defaultColor"]["value"]["borderColor"];
+      valueDiv.style.color = colorData["defaultColor"]["value"]["fontColor"];
+
+      let indexDiv = document.getElementById(`index-${i}`).childNodes[1];
+      indexDiv.style.background = colorData["defaultColor"]["index"]["bgColor"];
+      indexDiv.style.borderColor = colorData["defaultColor"]["index"]["borderColor"];
+      indexDiv.style.color = colorData["defaultColor"]["index"]["fontColor"];
+    }
+
+    resolve(true);
+  });
 };
 
 /**
