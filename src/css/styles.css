@@ -42,8 +42,8 @@ Algorithm Options CSS
 .visualizer-config-panel {
   background-color: #f9fafc;
   padding: 45px 10px;
-  width: 200px;
-  border-right: 1px solid #b4b0b0;
+  width: 300px;
+  /* border-right: 1px solid #b4b0b0; */
 }
 
 .configuration-options {
@@ -52,7 +52,7 @@ Algorithm Options CSS
 }
 
 .config-option {
-  padding: 10px;
+  padding: 10px 5px;
 }
 
 .vcp-title-text {
@@ -70,11 +70,12 @@ Algorithm Options CSS
 
 .logger-panel {
   width: 400px;
+  background-color: #f9fafc;
   /* height: 100%; */
   padding: 45px 0px 00px 0px;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #b4b0b0;
+  border-right: 1px solid #d9d9d9;
 }
 
 .av-status {
@@ -116,10 +117,15 @@ Algorithm Options CSS
   padding-top: 5px;
   padding-bottom: 5px;
   max-height: 600px;
-  overflow: overlay;
+  overflow: auto;
 }
 
 .lp-clear-log {
+  color: #cddc39;
+  font-size: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+  padding-right: 2px;
 }
 
 .lp-el-text {
@@ -150,7 +156,7 @@ Algorithm Options CSS
 }
 
 .item-value {
-  border: 1px #6c6969 solid;
+  border: 1px #a8a8a8 solid;
   border-bottom: none;
   height: 30px;
   width: 100%;
@@ -175,4 +181,62 @@ Algorithm Options CSS
   background-color: #ffbda8;
   padding: 5px;
   display: none;
+}
+
+.speed-controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+/* Form Input CSS */
+
+.btn {
+  display: inline-block;
+  user-select: none;
+  border: none;
+  padding: 0.275rem 0.5rem;
+  font-size: 16px;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #2196f3;
+  border-color: #2196f3;
+}
+
+.btn-secondary {
+  color: #fff;
+  background-color: #4caf50;
+  border-color: #4caf50;
+}
+
+.select-input {
+  display: block;
+  width: 100%;
+  padding: 0.275rem 0.5rem;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #595959;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.form-input {
+  display: block;
+  padding: 0.275rem 0.5rem;
+  width: 100%;
+  font-size: 15px;
+  color: #595959;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.input-group {
+  display: flex;
 }

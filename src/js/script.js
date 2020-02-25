@@ -1,5 +1,5 @@
 // default configuration
-let algoSelected = "id_2";
+let algoSelected = "id_1";
 let dataSetSize = "15";
 let searchedItem = "7";
 let visualizerRunning = false;
@@ -21,7 +21,7 @@ const algoData = {
 const colorData = {
   defaultColor: {
     index: { bgColor: "#6c6969", borderColor: "#6c6969", fontColor: "#fff" },
-    value: { bgColor: "none", borderColor: "#6c6969", fontColor: "#000" }
+    value: { bgColor: "none", borderColor: "#a8a8a8", fontColor: "#000" }
   },
   id_1: {
     name: "Linear Search",
@@ -142,10 +142,7 @@ const generateArrayElementsFrontend = async () => {
  */
 const algoChange = async () => {
   if (visualizerRunning) {
-    logger(
-      `Visualizer busy, changes will take effect after finishing current task.`,
-      "#ff5722"
-    );
+    logger(`Visualizer busy, changes will not take effect.`, "#ff5722");
     return 0;
   }
   console.log("algo changed");
