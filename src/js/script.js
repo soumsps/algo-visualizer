@@ -385,6 +385,12 @@ const decSpeed = (min = 1) => {
  * play pause toggler function
  */
 const animationPlayPauseToggle = () => {
+  // visualizer not running so no need to play/pause functionality
+  //so no change will occur
+  if (!visualizerRunning) {
+    return 0;
+  }
+
   if (isPlayingAnimation) {
     //animation is already playing
     // code for pausing it
