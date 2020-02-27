@@ -1,0 +1,23 @@
+{
+  "name": "algo-visualizer",
+  "version": "1.0.0",
+  "description": "Web app for visualizing algorithms",
+  "main": "src/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass": "sass src/css/styles.scss src/css/styles.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soumsps/algo-visualizer.git"
+  },
+  "author": "Soumendu Prasad Sinha",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/soumsps/algo-visualizer/issues"
+  },
+  "homepage": "https://github.com/soumsps/algo-visualizer#readme",
+  "dependencies": {
+    "sass": "^1.26.1"
+  }
+}
