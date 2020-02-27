@@ -3,6 +3,8 @@ let algoSelected = "id_1";
 let dataSetSize = "15";
 let searchedItem = "7";
 let visualizerRunning = false;
+// used for speed control play pause toggle
+let isPlayingAnimation = true;
 let speedFactor = 1;
 let arrayData = [];
 
@@ -310,8 +312,23 @@ const resetLoggerContent = () => {
  *  sleep function implementation
  * default value = 200ms
  */
-const sleep = (time = 200) => {
+const sleep = async (time = 200) => {
+  if (!isPlayingAnimation) {
+    logger("Visualizer Paused", "red");
+    await playPauseSleep();
+    logger("Visualizer Resumed", "greenyellow");
+  }
   return new Promise(resolve => setTimeout(() => resolve(true), time / speedFactor));
+};
+
+const playPauseSleep = () => {
+  return new Promise(resolve =>
+    setInterval(() => {
+      if (isPlayingAnimation) {
+        resolve(true);
+      }
+    }, 500)
+  );
 };
 
 /**
@@ -362,4 +379,20 @@ const decSpeed = (min = 1) => {
   }
 
   document.getElementById("curr-speed").innerHTML = `Current speed: ${speedFactor}x`;
+};
+
+/**
+ * play pause toggler function
+ */
+const animationPlayPauseToggle = () => {
+  if (isPlayingAnimation) {
+    //animation is already playing
+    // code for pausing it
+    isPlayingAnimation = false;
+    document.getElementById("spd-play-pause").innerHTML = `<i class="fa fa-play"></i>`;
+  } else {
+    // code for playing animation again
+    isPlayingAnimation = true;
+    document.getElementById("spd-play-pause").innerHTML = `<i class="fa fa-pause"></i>`;
+  }
 };
