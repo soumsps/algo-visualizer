@@ -131,7 +131,9 @@ const generateArrayElementsFrontend = async () => {
     itemGroup.appendChild(itemIndex);
     animationBoxDiv.appendChild(itemGroup);
 
-    await sleep(10);
+    if (i < 400) {
+      await sleep(10);
+    }
   }
 
   await sleep(500);
@@ -202,6 +204,12 @@ const visualizeNow = async () => {
   setSearchedItem();
   setAVStatusDiv();
   await resetHighlightedDivs();
+
+  if (screen.width <= 601) {
+    console.log("screen width:", screen.width);
+    onClickOptionsToggle(true);
+  }
+
   visualizerRunning = true;
 
   if (algoSelected === "id_1") {

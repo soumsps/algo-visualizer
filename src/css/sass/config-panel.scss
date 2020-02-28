@@ -1,0 +1,32 @@
+/* 
+Algorithm Options CSS 
+*/
+
+.visualizer-config-panel {
+  background-color: #f9fafc;
+  padding: 30px 10px;
+
+  border-right: 1px solid #ededed;
+
+  .vcp-title-text {
+    font-size: 19px;
+    font-weight: 500;
+  }
+
+  .configuration-options {
+    display: flex;
+    flex-direction: column;
+
+    .config-option {
+      padding: 10px 0px;
+
+      .vcp-label {
+        font-size: 14px;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
+}

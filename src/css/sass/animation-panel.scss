@@ -1,0 +1,55 @@
+/* Animation panel CSS */
+
+.animation-panel {
+  background-color: #fffef6;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  order: 1;
+  padding: 30px 0px;
+
+  .error-div {
+    background-color: #ffbda8;
+    padding: 5px;
+    display: none;
+  }
+
+  @media only screen and (max-width: 1025px) {
+    order: 0;
+    padding: 15px 0px;
+    height: 100%;
+  }
+}
+
+.animation-box {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.item-group {
+  margin: 10px;
+  width: 70px;
+
+  .item-value {
+    border: 1px #a8a8a8 solid;
+    border-bottom: none;
+    height: 30px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .item-index {
+    background-color: #6c6969;
+    border: 1px #6c6969 solid;
+    color: white;
+    padding: 2px 0px;
+    width: 100%;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

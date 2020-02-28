@@ -1,0 +1,47 @@
+/* Header CSS */
+
+.header {
+  background-color: #3f51b5;
+  padding: 5px 10px;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .header-logo {
+    height: 100%;
+    cursor: pointer;
+    img {
+      height: 100%;
+    }
+  }
+
+  .header-logs-icon {
+    font-size: 25px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+
+    .fa-terminal:before {
+      border: 2px solid white;
+      border-radius: 5px;
+      font-size: 21px;
+      padding: 0px 5px;
+    }
+
+    @media only screen and (min-width: 1025px) {
+      display: none;
+    }
+  }
+
+  .header-option-icon {
+    font-size: 25px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+
+    @media only screen and (min-width: 600px) {
+      display: none;
+    }
+  }
+}
