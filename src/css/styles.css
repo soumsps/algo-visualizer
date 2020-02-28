@@ -162,7 +162,7 @@ Algorithm Options CSS
   padding-left: 2px;
   padding-top: 5px;
   padding-bottom: 5px;
-  max-height: 600px;
+  max-height: 450px;
   overflow: auto;
 }
 .lp-el-content .lp-el-text {
@@ -206,7 +206,7 @@ Algorithm Options CSS
 
 .item-group {
   margin: 10px;
-  width: 70px;
+  width: 60px;
 }
 .item-group .item-value {
   border: 1px #a8a8a8 solid;
@@ -245,7 +245,7 @@ Algorithm Options CSS
 }
 @media only screen and (max-width: 600px) {
   .item-group {
-    width: 40px;
+    width: 45px;
     margin: 6px;
   }
   .item-group .item-value {
@@ -253,8 +253,8 @@ Algorithm Options CSS
     font-size: 13px;
   }
   .item-group .item-index {
-    padding: 1px 0px;
-    font-size: 10px;
+    padding: 0px 0px;
+    font-size: 9px;
   }
 }
 
@@ -288,8 +288,8 @@ body {
 
 .btn-primary {
   color: #fff;
-  background-color: #2196f3;
-  border-color: #2196f3;
+  background-color: #3f51b5;
+  border-color: #3f51b5;
 }
 
 .btn-secondary {
@@ -336,6 +336,9 @@ body {
   background-clip: padding-box;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
+}
+.input-group input:disabled {
+  background-color: #dfdede;
 }
 
 .speed-controls {

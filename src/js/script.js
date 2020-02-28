@@ -1,6 +1,7 @@
 // default configuration
 let algoSelected = "id_1";
 let dataSetSize = "15";
+const maxDataSetSize = 200;
 let searchedItem = "7";
 let visualizerRunning = false;
 // used for speed control play pause toggle
@@ -87,9 +88,9 @@ const randomArrayDataGen = async (count, sort = algoData[algoSelected].isSorted)
   arrayData.length = 0;
 
   for (let i = 0; i < count; i++) {
-    // andom number between -100 to 100
+    // andom number between -100 to 400
     if (Math.random() > 0.5) {
-      arrayData.push(Math.floor(Math.random() * 100));
+      arrayData.push(Math.floor(Math.random() * 400));
     } else {
       arrayData.push(Math.floor(Math.random() * 100 * -1));
     }
@@ -154,6 +155,14 @@ const algoChange = async () => {
   // logging changes
   logger(`${algoData[algoSelected].name} Algorithm selected`, "greenyellow");
 
+  if (algoData[algoSelected].isSearchItemReq) {
+    // enable search field
+    document.getElementById("searched-item").disabled = false;
+  } else {
+    // disable search field
+    document.getElementById("searched-item").disabled = true;
+  }
+
   // Resetting all Error message on frontend
   resetErrorMsg();
   console.log("New Algo selected: ", algoSelected);
@@ -168,7 +177,13 @@ const dataSetSizeChange = async () => {
   }
   console.log("data set changed Clicked");
   dataSetSize = parseInt(document.getElementById("data-set-size").value);
-  // logging changes
+
+  if (dataSetSize > maxDataSetSize) {
+    logger(`Sorry that size was too big.<br>`, "red");
+    dataSetSize = maxDataSetSize;
+    document.getElementById("data-set-size").value = maxDataSetSize;
+  }
+
   logger(`Data Set Size: ${dataSetSize}`, "greenyellow");
   // Resetting all Error message on frontend
   resetErrorMsg();
@@ -259,7 +274,6 @@ const setAVStatusDiv = () => {
   algoName.setAttribute("id", "avs-name");
   algoName.innerHTML = `Algorithm : ${algoData[algoSelected].name}`;
   avStatusDiv.appendChild(algoName);
-
   if (algoData[algoSelected].isSearchItemReq) {
     let searchedFor = document.createElement("div");
     let searchRes = document.createElement("div");
