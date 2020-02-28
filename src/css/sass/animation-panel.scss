@@ -36,14 +36,15 @@
     border-bottom: none;
     height: 30px;
     width: 100%;
+    font-size: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   .item-index {
-    background-color: #6c6969;
-    border: 1px #6c6969 solid;
+    background-color: #6d6d6d;
+    border: 1px #6d6d6d solid;
     color: white;
     padding: 2px 0px;
     width: 100%;
@@ -51,5 +52,35 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  @media only screen and (max-width: 1025px) {
+    width: 50px;
+    margin: 7px;
+
+    .item-value {
+      height: 20px;
+      font-size: 14px;
+    }
+
+    .item-index {
+      padding: 1px 0px;
+      font-size: 10px;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    width: 40px;
+    margin: 6px;
+
+    .item-value {
+      height: 18px;
+      font-size: 13px;
+    }
+
+    .item-index {
+      padding: 1px 0px;
+      font-size: 10px;
+    }
   }
 }
